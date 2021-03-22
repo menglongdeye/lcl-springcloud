@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+# 配置spring-data-jpa
+spring:
+  jpa:
+    # 设置重启时是否更新表结构
+    hibernate:
+      ddl-auto: none
+    # 设置是否在容器启动时创建表，默认为false
+    generate-ddl: true
+    # 设置是否显示sql，默认为false
+    show-sql: true
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://8.131.245.53:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
