@@ -15,6 +15,21 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://8.131.245.53:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://8.131.245.53:3306/lcltest?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
+
+# 配置日志
+logging:
+  pattern:
+    console: level-%level %msg%n
+  level:
+    root: info
+    # hibernate输出日志级别
+    org.hibernate: info
+    # 在show-sql为true时，显示sql中的动态值
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    # 在show-sql为true时，显示查询结果
+    org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
+    # 设置自己代码的日志级别
+    com.lcl.springcloud: debug
