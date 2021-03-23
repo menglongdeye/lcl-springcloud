@@ -1,0 +1,10 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    hostname: consumer-depart-01-8080
+
+spring:
+  application:
+    name: consumer-depart

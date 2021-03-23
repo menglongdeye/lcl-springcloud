@@ -1,6 +1,7 @@
 server:
   port: 8081
 
+
 # 配置spring-data-jpa
 spring:
   jpa:
@@ -18,6 +19,9 @@ spring:
     url: jdbc:mysql://8.131.245.53:3306/lcltest?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
+  application:
+    name: provider-depart
+
 
 # 配置日志
 logging:
@@ -33,3 +37,11 @@ logging:
     org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
     # 设置自己代码的日志级别
     com.lcl.springcloud: debug
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    hostname: provider-depart

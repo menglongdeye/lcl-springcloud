@@ -1,0 +1,19 @@
+server:
+  port: 8000
+
+eureka:
+  instance:
+  # 指定eureka主机
+    hostname: localhost
+  client:
+    # 是否向eureka注册自己
+    register-with-eureka: false
+    # 指定客户端是否能够获取eureka注册信息
+    fetch-registry: false
+    # 暴露服务中心地址
+    server-url:
+      # 服务中心地址，写法等同于：http:localhost:8080/eureka
+      defualtZone: http://${eureka.instance.hostname}:${server.port}/eureka
+spring:
+  application:
+    name: eureka-server

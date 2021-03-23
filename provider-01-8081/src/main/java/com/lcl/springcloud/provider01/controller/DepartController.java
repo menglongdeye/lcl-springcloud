@@ -3,6 +3,7 @@ package com.lcl.springcloud.provider01.controller;
 import com.lcl.springcloud.provider01.dao.Depart;
 import com.lcl.springcloud.provider01.service.DepartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +15,11 @@ public class DepartController {
     @Autowired
     private DepartService departService;
 
+    @Autowired  //声明服务发现客户端
+    private DiscoveryClient client;
+
     @PostMapping("/save")
-    public boolean save(Depart depart){
+    public boolean save(@RequestBody Depart depart){
         return departService.save(depart);
     }
 
@@ -25,7 +29,7 @@ public class DepartController {
     }
 
     @PostMapping("/update")
-    public boolean update(Depart depart){
+    public boolean update(@RequestBody Depart depart){
         return departService.update(depart);
     }
 
