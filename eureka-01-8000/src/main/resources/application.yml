@@ -14,6 +14,16 @@ eureka:
     server-url:
       # 服务中心地址，写法等同于：http:localhost:8080/eureka
       defualtZone: http://${eureka.instance.hostname}:${server.port}/eureka
+  server:
+    # 关闭自我保护，不建议关闭
+    enable-self-preservation: false
+    # eureka server 剔除不可用服务的时间窗
+    eviction-interval-timer-in-ms: 4000
+    # 设置心跳保护开启的阈值
+    #renewal-percent-threshold: 0.75
+
+# 指定服务名称
 spring:
   application:
     name: eureka-server
+

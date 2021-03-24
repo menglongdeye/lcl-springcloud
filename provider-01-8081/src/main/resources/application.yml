@@ -2,15 +2,15 @@ server:
   port: 8081
 
 
-# ÅäÖÃspring-data-jpa
+# é…ç½®spring-data-jpa
 spring:
   jpa:
-    # ÉèÖÃÖØÆôÊ±ÊÇ·ñ¸üĞÂ±í½á¹¹
+    # è®¾ç½®é‡å¯æ—¶æ˜¯å¦æ›´æ–°è¡¨ç»“æ„
     hibernate:
       ddl-auto: none
-    # ÉèÖÃÊÇ·ñÔÚÈİÆ÷Æô¶¯Ê±´´½¨±í£¬Ä¬ÈÏÎªfalse
+    # è®¾ç½®æ˜¯å¦åœ¨å®¹å™¨å¯åŠ¨æ—¶åˆ›å»ºè¡¨ï¼Œé»˜è®¤ä¸ºfalse
     generate-ddl: true
-    # ÉèÖÃÊÇ·ñÏÔÊ¾sql£¬Ä¬ÈÏÎªfalse
+    # è®¾ç½®æ˜¯å¦æ˜¾ç¤ºsqlï¼Œé»˜è®¤ä¸ºfalse
     show-sql: true
 
   datasource:
@@ -20,28 +20,67 @@ spring:
     username: root
     password: root
   application:
+    # å½“å‰æœåŠ¡åç§°
     name: provider-depart
 
 
-# ÅäÖÃÈÕÖ¾
+# é…ç½®æ—¥å¿—
 logging:
   pattern:
     console: level-%level %msg%n
   level:
     root: info
-    # hibernateÊä³öÈÕÖ¾¼¶±ğ
+    # hibernateè¾“å‡ºæ—¥å¿—çº§åˆ«
     org.hibernate: info
-    # ÔÚshow-sqlÎªtrueÊ±£¬ÏÔÊ¾sqlÖĞµÄ¶¯Ì¬Öµ
+    # åœ¨show-sqlä¸ºtrueæ—¶ï¼Œæ˜¾ç¤ºsqlä¸­çš„åŠ¨æ€å€¼
     org.hibernate.type.descriptor.sql.BasicBinder: trace
-    # ÔÚshow-sqlÎªtrueÊ±£¬ÏÔÊ¾²éÑ¯½á¹û
+    # åœ¨show-sqlä¸ºtrueæ—¶ï¼Œæ˜¾ç¤ºæŸ¥è¯¢ç»“æœ
     org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
-    # ÉèÖÃ×Ô¼º´úÂëµÄÈÕÖ¾¼¶±ğ
+    # è®¾ç½®è‡ªå·±ä»£ç çš„æ—¥å¿—çº§åˆ«
     com.lcl.springcloud: debug
 
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8000/eureka
+        defaultZone: http://localhost:8000/eureka
+
+
+#    # æŒ‡å®šåŒºåŸŸåç§°
+#    region: lclregion
+#    # æŒ‡å®šåŒºåŸŸä¸­æ‰€åŒ…å«çš„åœ°å¸¦zoned
+#    availability-zones:
+#      lclregion: lcl1,lcl2
+#    # æŒ‡å®šå„ä¸ªåœ°å¸¦zoneä¸­æ‰€åŒ…å«çš„eureka serveråœ°å€
+#    service-url:
+#      lcl1: http://localhost:8000/eureka
+#      lcl2: http://localhost:8000/eureka
+#    # æŒ‡å®šè¦è¿çš„æ³¨å†Œä¸­å¿ƒ
+#    fetch-remote-regions-registry: lclregion
   instance:
-    hostname: provider-depart
+    # æœåŠ¡æä¾›è€…id
+    instance-id: provider-depart-01-8081
+    # è®¾ç½®å½“å‰cleitæ¯1ç§’å‘serverå‘é€ä¸€æ¬¡å¿ƒè·³
+    lease-renewal-interval-in-seconds: 1
+    # è®¾ç½®è¶…è¿‡3ç§’å³è®¤ä¸ºå¤±æ•ˆ
+    lease-expiration-duration-in-seconds: 3
+
+info:
+  app.version: 1.0
+  app.auth: lcl
+  app.name: provider-depart
+
+
+management:
+  endpoint:
+    shutdown:
+      # å¼€å¯shutdownåŠŸèƒ½
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        # å¼€å¯æ‰€æœ‰ç›‘æ§ç»ˆç«¯
+        include: "*"
+
+

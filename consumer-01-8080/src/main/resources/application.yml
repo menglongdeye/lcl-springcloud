@@ -3,8 +3,13 @@ eureka:
     service-url:
       defaultZone: http://localhost:8000/eureka
   instance:
-    hostname: consumer-depart-01-8080
+    instance-id: consumer-depart-01-8080
 
 spring:
   application:
     name: consumer-depart
+
+info:
+  app.version: 1.0
+  app.auth: lcl
+  app.name: consumer-depart
