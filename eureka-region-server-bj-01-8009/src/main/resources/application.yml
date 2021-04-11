@@ -1,9 +1,5 @@
 server:
-  port: 8081
-  servlet:
-    context-path: /provider
-
-
+  port: 8009
 
 
 # 配置spring-data-jpa
@@ -46,21 +42,17 @@ logging:
 
 eureka:
   client:
+    # 指定区域名称
+    region: beijing
+    # 指定区域中所包含的地带zoned
+    availability-zones:
+      beijing: bj1,bj2
+    # 指定各个地带zone中所包含的eureka server地址
     service-url:
-        defaultZone: http://localhost:8000/eureka
-#      defaultZone: http://eureka8100:8100/eureka, http://eureka8200:8200/eureka, http://eureka8300:8300/eureka
-
-#    # 指定区域名称
-#    region: lclregion
-#    # 指定区域中所包含的地带zoned
-#    availability-zones:
-#      lclregion: lcl1,lcl2
-#    # 指定各个地带zone中所包含的eureka server地址
-#    service-url:
-#      lcl1: http://localhost:8000/eureka
-#      lcl2: http://localhost:8000/eureka
-#    # 指定要连的注册中心
-#    fetch-remote-regions-registry: lclregion
+      bj1: http://eureka8001:8001/eureka, http://eureka8002:8002/eureka, http://eureka8003:8003/eureka
+      bj2: http://eureka8004:8004/eureka, http://eureka8005:8005/eureka, http://eureka8006:8006/eureka
+    # 指定要连的注册中心
+    fetch-remote-regions-registry: beijing
   instance:
     # 服务提供者id
     instance-id: provider-depart-01-8081
@@ -68,6 +60,8 @@ eureka:
     lease-renewal-interval-in-seconds: 1
     # 设置超过3秒即认为失效
     lease-expiration-duration-in-seconds: 3
+    metadata-map:
+      zone: bj1
 
 info:
   app.version: 1.0

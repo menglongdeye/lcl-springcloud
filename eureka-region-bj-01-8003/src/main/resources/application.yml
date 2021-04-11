@@ -1,0 +1,16 @@
+server:
+  port: 8003
+
+eureka:
+  instance:
+    metadata-map:
+      zone: bj1
+  client:
+    region: beijing
+    register-with-eureka: false
+    fetch-registry: false
+    availability-zones:
+      beijing: bj1,bj2
+    service-url:
+      bj1: http://eureka8001:8001, http://eureka8002:8002, http://eureka8003:8003
+      bj2: http://eureka8004:8004, http://eureka8005:8005, http://eureka8006:8006
