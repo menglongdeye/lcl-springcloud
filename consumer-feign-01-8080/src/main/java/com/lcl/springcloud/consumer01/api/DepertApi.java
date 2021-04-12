@@ -11,10 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/depart")
 public class DepertApi {
-
-
-
-
     @Autowired
     private DepartService departService;
 
@@ -28,10 +24,10 @@ public class DepertApi {
         return departService.del(id);
     }
 
-    /*@PostMapping("/update")
+    @PostMapping("/update")
     public boolean update(@RequestBody Depart depart){
         return departService.update(depart);
-    }*/
+    }
 
     @GetMapping("/find/{id}")
     public Depart query(@PathVariable int id){

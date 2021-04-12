@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient("provider-depart")
+@FeignClient("pd")
 @RequestMapping("/provider/depart")
 public interface DepartService {
     @PostMapping("/save")
@@ -15,8 +15,8 @@ public interface DepartService {
     @PostMapping("/del")
     boolean del(int id);
 
-    /*@PostMapping("/update")
-    boolean update(Depart depart);*/
+    @PostMapping("/update")
+    boolean update(Depart depart);
 
     @GetMapping("/find/{id}")
     Depart query(int id);

@@ -13,3 +13,24 @@ info:
   app.version: 1.0
   app.auth: lcl
   app.name: consumer-depart
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000 # 指定feign连接提供者的超时时间
+        readTimeout: 5000 # 指定feign从请求到获取响应的超时时间
+  compression:
+    request:
+      enabled: true # 开启对请求的压缩
+      # 指定对哪些文件类型进行压缩
+      mime-types: ["text/xml","application/xml","application/json"]
+      # 开启压缩的文件大小
+      min-request-size: 2048
+    response:
+      enabled: true
+
+# 负载均衡策略
+consumer-depart:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

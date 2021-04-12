@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
   servlet:
     context-path: /provider
 
@@ -63,7 +63,7 @@ eureka:
 #    fetch-remote-regions-registry: lclregion
   instance:
     # 服务提供者id
-    instance-id: provider-depart-01-8081
+    instance-id: provider-depart-01-8082
     # 设置当前cleit每1秒向server发送一次心跳
     lease-renewal-interval-in-seconds: 1
     # 设置超过3秒即认为失效

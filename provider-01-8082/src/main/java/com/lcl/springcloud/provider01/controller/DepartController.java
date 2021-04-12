@@ -45,7 +45,6 @@ public class DepartController {
 
     @GetMapping("/findAll")
     public List<Depart> findAll() throws Exception {
-        TimeUnit.SECONDS.sleep(5);
         return departService.findAll();
     }
 
