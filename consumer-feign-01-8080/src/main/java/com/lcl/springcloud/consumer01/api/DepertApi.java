@@ -4,7 +4,6 @@ import com.lcl.springcloud.consumer01.dao.Depart;
 import com.lcl.springcloud.consumer01.service.DepartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
