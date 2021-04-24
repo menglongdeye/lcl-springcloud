@@ -40,6 +40,11 @@ public class DepartController {
 
     @GetMapping("/find/{id}")
     public Depart query(@PathVariable int id){
+        try {
+            TimeUnit.SECONDS.sleep(id);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return departService.find(id);
     }
 
