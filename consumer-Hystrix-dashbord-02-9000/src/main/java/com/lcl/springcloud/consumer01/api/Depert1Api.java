@@ -36,7 +36,7 @@ public class Depert1Api {
     }
 
     @HystrixCommand(fallbackMethod = "failMethod2", commandProperties = {@HystrixProperty(name="execution.isolation.strategy",value="SEMAPHORE")})
-    @GetMapping("/find/id")
+    @GetMapping("/find/{id}")
     public Depart find(HttpServletRequest request, @PathVariable int id){
         return departService.query(id);
     }

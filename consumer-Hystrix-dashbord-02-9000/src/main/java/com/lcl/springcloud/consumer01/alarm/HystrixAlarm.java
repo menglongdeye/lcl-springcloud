@@ -2,6 +2,7 @@ package com.lcl.springcloud.consumer01.alarm;
 
 import com.lcl.springcloud.consumer01.dao.Depart;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class HystrixAlarm {
 
     private final String keySuffix = "_getDepart_fallback";
+    @Autowired
     private StringRedisTemplate template;
     private ForkJoinPool forkJoinPool = new ForkJoinPool(5);
 
