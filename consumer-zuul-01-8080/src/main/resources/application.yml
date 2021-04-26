@@ -1,0 +1,85 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    instance-id: c-8080
+
+spring:
+  redis:
+    host: 8.131.245.53
+    port: 6388
+    password:
+  application:
+    name: c-8080
+
+info:
+  app.version: 1.0
+  app.auth: lcl
+  app.name: consumer-depart
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000 # 指定feign连接提供者的超时时间
+        readTimeout: 5000 # 指定feign从请求到获取响应的超时时间
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true # 开启对请求的压缩
+      # 指定对哪些文件类型进行压缩
+      mime-types: ["text/xml","application/xml","application/json"]
+      # 开启压缩的文件大小
+      min-request-size: 2048
+    response:
+      enabled: true
+
+# 负载均衡策略
+consumer-depart:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+hystrix:
+  command:
+    default:
+      circuitBreaker:
+        # 设置熔断器开关，默认为true
+        enabled: true
+        # 设置熔断器开启阈值，默认为20
+        requestVolumeThread: 20
+        # 熔断时间窗，默认为5000ms
+        sleepWindowInMilliseconds: 5000
+        # 熔断器开启错误率
+        errorThresholdPercentage: 50
+        # 强制开启熔断器，默认为false
+        forceOpen: false
+        # 强制关闭熔断器，默认为false
+        forceClose: false
+      execution:
+        timeout:
+          # 开启超时控制 默认为true
+          enabled: true
+        isolation:
+          # 设置隔离策略：值可以设置为：thread、semaphore
+          strategy: THREAD
+          thread:
+            # 设置超时时间，默认为1000ms
+            timeoutInMilliseconds: 1000
+            # 开启超时终端，默认为true
+            interruptOnTimeout: true
+            # 取消中断 默认为false
+            interruptOnCancel: true
+          semaphore:
+            # 设置信号量数量
+            maxConcurrentRequests: 20
+
+
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8080

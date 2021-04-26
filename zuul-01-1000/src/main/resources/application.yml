@@ -1,0 +1,23 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+
+spring:
+  application:
+    name: zuul-01-1000
+
+server:
+  port: 1000
+
+zuul:
+  # 路由规则
+  routes:
+    c-8080: /v1/**
+    c-8090: /v2/**
+  # 路由前缀
+  prefix: /zuulpre
+  # 屏蔽微服务名称
+  ignored-services: "*"
+  # 屏蔽指定url
+  ignored-patterns: /**/list/**
