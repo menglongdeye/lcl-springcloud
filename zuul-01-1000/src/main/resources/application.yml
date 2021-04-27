@@ -7,6 +7,7 @@ spring:
   application:
     name: zuul-01-1000
 
+
 server:
   port: 1000
 
@@ -21,3 +22,6 @@ zuul:
   ignored-services: "*"
   # 屏蔽指定url
   ignored-patterns: /**/list/**
+  # 指定屏蔽请求头中信息
+  sensitive-headers: Token,aaa
+

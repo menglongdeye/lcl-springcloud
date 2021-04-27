@@ -38,4 +38,10 @@ public class DepertApi {
         return departService.query(id);
     }
 
+    @GetMapping("/findAll2")
+    public List<Depart> findAll(HttpServletRequest request){
+        log.info("request.getHeader(\"Token\")========={}", request.getHeader("Token"));
+        log.info("request.getHeader(\"Set-Cookie\")========={}", request.getHeader("Set-Cookie"));
+        return departService.findAll();
+    }
 }
