@@ -1,5 +1,6 @@
 package com.lcl.springcloud.consumer01;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -15,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 @Slf4j
 public class RouteFilter extends ZuulFilter {
+
+    //每秒生成2个令牌
+    private static final RateLimiter RATE_LIMITER = RateLimiter.create(2);
+
     @Override
     public String filterType() {
         //路由执行位置：指定路由之前执行
@@ -34,10 +39,19 @@ public class RouteFilter extends ZuulFilter {
         RequestContext currentContext = RequestContext.getCurrentContext();
         //获取请求
         HttpServletRequest request = currentContext.getRequest();
+
+        if(!RATE_LIMITER.tryAcquire()){
+            log.warn("请求超载，每秒只可访问{}次", RATE_LIMITER.getRate());
+            RequestContext.getCurrentContext().setSendZuulResponse(false);
+            RequestContext.getCurrentContext().setResponseStatusCode(HttpStatus.SC_CONFLICT);
+            return false;
+        }
+
+
         //获取请求路径和user信息
         String requestURI = request.getRequestURI();
         String user = request.getParameter("user");
-        //校验逻辑
+        //请求过滤
         if(requestURI.contains("/v2") && StringUtils.isBlank(user)){
             log.warn("访问/v2时用户不能为空");
             //指定当前请求未通过Zuul过滤，默认值为true
