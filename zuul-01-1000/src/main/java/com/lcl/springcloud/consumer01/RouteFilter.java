@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import io.jmnarloch.spring.cloud.ribbon.support.RibbonFilterContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
@@ -45,6 +46,12 @@ public class RouteFilter extends ZuulFilter {
             RequestContext.getCurrentContext().setSendZuulResponse(false);
             RequestContext.getCurrentContext().setResponseStatusCode(HttpStatus.SC_CONFLICT);
             return false;
+        }
+
+        //如果前端传的test为Y，则认为是测试路径，请求到gray-test为gray的服务上
+        String test = request.getHeader("test");
+        if(StringUtils.isNotBlank(test) && "Y".equals(test)){
+            RibbonFilterContextHolder.getCurrentContext().add("gray-test","gray");
         }
 
 

@@ -4,6 +4,8 @@ eureka:
       defaultZone: http://localhost:8000/eureka
   instance:
     instance-id: c-8090
+    metadata-map:
+      gray-test: gray
 
 spring:
   redis:
