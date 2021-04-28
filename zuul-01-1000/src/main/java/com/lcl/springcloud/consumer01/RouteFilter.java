@@ -49,10 +49,10 @@ public class RouteFilter extends ZuulFilter {
         }
 
         //如果前端传的test为Y，则认为是测试路径，请求到gray-test为gray的服务上
-        String test = request.getHeader("test");
+        /*String test = request.getHeader("test");
         if(StringUtils.isNotBlank(test) && "Y".equals(test)){
             RibbonFilterContextHolder.getCurrentContext().add("gray-test","gray");
-        }
+        }*/
 
 
         //获取请求路径和user信息
@@ -76,6 +76,20 @@ public class RouteFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         log.info("=====校验通过=====");
+
+        String test = RequestContext.getCurrentContext().getRequest().getHeader("test");
+        if(StringUtils.isNotBlank(test) && "Y".equals(test)){
+            int send = (int) (Math.random() * 100);
+            log.info("send==================={}", send);
+            if (send >= 0 && send < 10) {
+                //也就是百分之10的请求转发到gray-test=gray的服务上去
+                RibbonFilterContextHolder.getCurrentContext().add("gray-test","gray");
+            } else {
+                //百分之90的请求转发到gray-test=running的服务上去
+                RibbonFilterContextHolder.getCurrentContext().add("gray-test","running");
+            }
+        }
+
         return null;
     }
 }
