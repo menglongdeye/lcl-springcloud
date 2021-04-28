@@ -1,0 +1,46 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+
+spring:
+  application:
+    name: zuul-01-1000
+
+
+server:
+  port: 1000
+
+zuul:
+  # 路由规则
+  routes:
+    c-8080: /v1/**
+    c-8090: /v2/**
+  # 路由前缀
+  prefix: /zuulpre
+  # 屏蔽微服务名称
+  ignored-services: "*"
+  # 屏蔽指定url
+  ignored-patterns: /**/list/**
+  # 指定屏蔽请求头中信息
+  sensitive-headers: Token,aaa
+
+  # 对限流策略进行配置
+  ratelimit:
+    # 开启限流
+    enabled: true
+    # 设置限流策略
+    default-policy:
+      # 限流单位时间窗口
+      refresh-interval: 3
+      # 在指定单位窗口内启动限流的限定值
+      limit: 3
+      # 指定限流的时间窗口数量
+      quota: 1
+      # 指定限流检查对象类型
+      # user：针对用户的限流，对单位时间窗内经过该网关的用户数量进行限制
+      # origin：针对客户端IP的限流，对单位时间窗内经过该网关的IP数量进行限制
+      # url：针对请求URL的限流，对单位时间窗内经过该网关的URL数量进行限制
+      type: user,origin,url
+
+
