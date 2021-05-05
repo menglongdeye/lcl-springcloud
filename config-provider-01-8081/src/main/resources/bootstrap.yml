@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: application-provider-config
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://configserver.com:9999
+      label: main
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
