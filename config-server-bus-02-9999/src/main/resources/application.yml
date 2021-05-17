@@ -1,0 +1,46 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: springcloud-config-bus-server
+  cloud:
+    config:
+      server:
+        git:
+          # 设置git仓库地址
+          uri: git@github.com:menglongdeye/lcl-springcloud.git
+          search-paths: zzz-configfile
+          # git连接超时时间
+          timeout: 5
+          # git分支
+          default-label: main
+    bus:
+      refresh:
+        enabled: true
+      enabled: true
+      trace:
+        enabled: true
+  # 注册kafka集群
+  kafka:
+    bootstrap-servers: 192.168.206.131:9092,192.168.206.132:9092,192.168.206.133:9092
+    consumer:
+      group-id: springcloudConfig
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    # 服务提供者id
+    instance-id: config-bus-server
+    # 设置当前cleit每1秒向server发送一次心跳
+    lease-renewal-interval-in-seconds: 1
+    # 设置超过3秒即认为失效
+    lease-expiration-duration-in-seconds: 3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

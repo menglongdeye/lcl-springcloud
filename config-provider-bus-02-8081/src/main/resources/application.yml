@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+
+
+
+
+
+#spring:
+#  cloud:
+#    config:
+#      failFast: true
+#      bus:
+#        trace:
+#          enabled: true

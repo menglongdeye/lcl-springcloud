@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: application-provider-config
+  cloud:
+    config:
+      uri: http://configserver.com:9999
+      label: main
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+    bus:
+      refresh:
+        enabled: true
+      enabled: true
+      trace:
+        enabled: true
+  # 注册kafka集群
+  kafka:
+    bootstrap-servers: 192.168.206.131:9092,192.168.206.132:9092,192.168.206.133:9092
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    # 服务提供者id
+    instance-id: provider-bus
+    # 设置当前cleit每1秒向server发送一次心跳
+    lease-renewal-interval-in-seconds: 1
+    # 设置超过3秒即认为失效
+    lease-expiration-duration-in-seconds: 3
