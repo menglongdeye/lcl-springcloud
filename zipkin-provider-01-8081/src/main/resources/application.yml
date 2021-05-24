@@ -1,0 +1,95 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /provider
+
+
+
+
+# 配置spring-data-jpa
+spring:
+  zipkin:
+    base-url: http://8.131.245.53:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+  jpa:
+    # 设置重启时是否更新表结构
+    hibernate:
+      ddl-auto: none
+    # 设置是否在容器启动时创建表，默认为false
+    generate-ddl: true
+    # 设置是否显示sql，默认为false
+    show-sql: true
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://8.131.245.53:3306/lcltest?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+  application:
+    # 当前服务名称
+    name: pd
+
+
+# 配置日志
+#logging:
+#  pattern:
+#    console: level-%level %msg%n
+#  level:
+#    root: info
+#    # hibernate输出日志级别
+#    org.hibernate: info
+#    # 在show-sql为true时，显示sql中的动态值
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace
+#    # 在show-sql为true时，显示查询结果
+#    org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
+#    # 设置自己代码的日志级别
+#    com.lcl.springcloud: debug
+
+
+eureka:
+  client:
+    service-url:
+        defaultZone: http://localhost:8000/eureka
+#      defaultZone: http://eureka8100:8100/eureka, http://eureka8200:8200/eureka, http://eureka8300:8300/eureka
+
+#    # 指定区域名称
+#    region: lclregion
+#    # 指定区域中所包含的地带zoned
+#    availability-zones:
+#      lclregion: lcl1,lcl2
+#    # 指定各个地带zone中所包含的eureka server地址
+#    service-url:
+#      lcl1: http://localhost:8000/eureka
+#      lcl2: http://localhost:8000/eureka
+#    # 指定要连的注册中心
+#    fetch-remote-regions-registry: lclregion
+  instance:
+    # 服务提供者id
+    instance-id: provider-depart-01-8081
+    # 设置当前cleit每1秒向server发送一次心跳
+    lease-renewal-interval-in-seconds: 1
+    # 设置超过3秒即认为失效
+    lease-expiration-duration-in-seconds: 3
+
+info:
+  app.version: 1.0
+  app.auth: lcl
+  app.name: provider-depart
+
+
+management:
+  endpoint:
+    shutdown:
+      # 开启shutdown功能
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        # 开启所有监控终端
+        include: "*"
+
+
