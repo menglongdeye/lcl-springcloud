@@ -1,0 +1,67 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          # kafka地址
+          brokers: 192.168.1.110:9092
+          # 是否自动创建topic
+          auto-create-topics: true
+      bindings:
+        # 输出的主题及类型
+        output:
+          destination: stram-test
+          content-type: text/plain
+        stram-test-001:
+          destination: stram-001
+          content-type: text/plain
+        stram-test-002:
+          destination: stram-002
+          content-type: text/plain
+        input:
+          destination: stram-test
+
+#  application:
+#    name: consumer-depart
+
+
+management:
+  endpoint:
+    shutdown:
+      # 开启shutdown功能
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        # 开启所有监控终端
+        include: "*"
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  #      defaultZone: http://eureka8100:8100/eureka, http://eureka8200:8200/eureka, http://eureka8300:8300/eureka
+
+  #    # 指定区域名称
+  #    region: lclregion
+  #    # 指定区域中所包含的地带zoned
+  #    availability-zones:
+  #      lclregion: lcl1,lcl2
+  #    # 指定各个地带zone中所包含的eureka server地址
+  #    service-url:
+  #      lcl1: http://localhost:8000/eureka
+  #      lcl2: http://localhost:8000/eureka
+  #    # 指定要连的注册中心
+  #    fetch-remote-regions-registry: lclregion
+  instance:
+    # 服务提供者id
+    instance-id: stream-01-8081
+    # 设置当前cleit每1秒向server发送一次心跳
+    lease-renewal-interval-in-seconds: 1
+    # 设置超过3秒即认为失效
+    lease-expiration-duration-in-seconds: 3
